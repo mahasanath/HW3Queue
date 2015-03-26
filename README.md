@@ -90,6 +90,13 @@ Visit 'meow' to test the "queue" functionality:
 ```
 	client.lpush('images',img);
 ```   
+    
+    
+#### All tasks console output:    
+
+![alltasks_console](https://github.com/mahasanath/HW3Queue/blob/master/screenshots/tasksConsole_get_set_recent_meow.PNG)   
+
+
 ##### Task 4: Additional service instance running    
 
 > Additional service is completed by adding another server instance at 'port 3002'. This is run as a child process using main.js
@@ -100,6 +107,8 @@ Visit 'meow' to test the "queue" functionality:
 ##### Task 5: Demonstrate proxy   
 
 > Proxy is implemented in two ways. One method in which I have implemented proxy using "http-proxy" node module, proxy behaves as a load balancer. It redirects all requests on port 80 to either 3001 or 3002 using the round robin scheme. Sample code from simple-balancer.js from the http-proxy library has been used. The code is added to the repository as ProxyHtpp.js.   
+
+![proxy](https://github.com/mahasanath/HW3Queue/blob/master/screenshots/proxy_host.PNG)
 
 > Another method is using an other server instance running on port 3000 ( node proxyserver1.js ) which would relay client requests that it receives and redirects it to ports 3001 or 3002. 
 
