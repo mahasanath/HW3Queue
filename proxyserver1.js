@@ -61,7 +61,7 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
 	   fs.readFile( req.files.image.path, function (err, data) {
 	  		if (err) throw err;
 	  		var img = new Buffer(data).toString('base64');
-	  		console.log(img);
+	  		//console.log(img);
 			client.lpush('images',img);
 				
 		}); 

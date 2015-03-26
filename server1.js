@@ -13,30 +13,27 @@ app.use(function(req, res, next)
 {
 	console.log(req.method, req.url);
 	
-	client.lpush("history",req.url);
-	client.ltrim("history",0,4);
+	client.lpush("history",req.url); //push URLs to history
+	client.ltrim("history",0,4);	//use ltrim to shorten history
 	
 
 	next(); // Passing the request to the next handler in the stack.
 });
 
 app.get('/', function(req, res) {
-	console.log("request made by host :" + req.get('host'));
 	client.lpush("history",req.url);
 	res.send('Server now in port 3001')
 })
 
 app.get('/get',function(req,res){
-	console.log("request made by host :" + req.get('host'));
 	client.lpush("history",req.url);
 	client.get("key",function(err,value){
-	res.send(value)
-})
+		res.send(value)
+	})
 
 })
 
 app.get('/set',function(req,res){
-	console.log("request made by host :" + req.get('host'));
 	client.lpush("history",req.url);
 	client.set("key", "this message will destruct in 10 sec");
 	client.expire("key",10);
@@ -45,7 +42,6 @@ app.get('/set',function(req,res){
 
 
 app.get('/recent',function(req,res){
-	console.log("request made by host :" + req.get('host'));
 	client.lrange("history",0,-1,function(err,value){
 	console.log("Recently Visited sites :");
 	value.forEach(function(value){
@@ -53,12 +49,11 @@ app.get('/recent',function(req,res){
 	})
 	res.send(value);
 	
-})
+	})
 });
 
 
 app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
-   console.log("request made by host :" + req.get('host'));
    console.log(req.body) // form fields
    console.log(req.files) // form files
    console.log(req.files.image.path)
@@ -67,7 +62,7 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
 	   fs.readFile( req.files.image.path, function (err, data) {
 	  		if (err) throw err;
 	  		var img = new Buffer(data).toString('base64');
-	  		console.log(img);
+	  		//console.log(img);
 			client.lpush('images',img);
 				
 		}); 
@@ -77,16 +72,12 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
  }]);
 
 app.get('/meow', function(req, res) {
-		console.log("request made by host :" + req.get('host'));
+
 		client.lpop('images',function(err,imagedata){
 
 			if (err) res.send('')
-
 			res.writeHead(200, {'content-type':'text/html'});
-			//items.forEach(function (imagedata)
-			//{
-				res.write("<h1>\n<img src='data:hairypotter.jpg;base64,"+imagedata+"'/>");
-			//});
+			res.write("<h1>\n<img src='data:hairypotter.jpg;base64,"+imagedata+"'/>");
 			res.end();
 
 		})

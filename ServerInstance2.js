@@ -21,6 +21,7 @@ app.use(function(req, res, next)
 });
 
 app.get('/', function(req, res) {
+	console.log("request made by host :" + req.get('host'));
 	client.lpush("history",req.url);
 	res.send('Server now in port 3002')
 })
@@ -41,6 +42,7 @@ app.get('/set',function(req,res){
 
 
 app.get('/recent',function(req,res){
+	console.log("request made by host :" + req.get('host'));
 	client.lrange("history",0,-1,function(err,value){
 	console.log("Recently Visited sites :");
 	value.forEach(function(value){
@@ -63,6 +65,7 @@ app.get('/recent',function(req,res){
 */
 
 app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
+   console.log("request made by host :" + req.get('host'));
    console.log(req.body) // form fields
    console.log(req.files) // form files
    console.log(req.files.image.path)
@@ -81,7 +84,7 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
  }]);
 
 app.get('/meow', function(req, res) {
-
+		console.log("request made by host :" + req.get('host'));
 		client.lpop('images',function(err,imagedata){
 
 			if (err) res.send('')
