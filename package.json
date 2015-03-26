@@ -1,5 +1,5 @@
 {
-  "name": "queue",
+  "name": "DevopsHW3Queues",
   "version": "0.0.0",
   "description": "redis playground",
   "main": "main.js",

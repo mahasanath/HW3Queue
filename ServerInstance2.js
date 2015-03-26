@@ -105,7 +105,7 @@ var server = app.listen(3002, function () {
 	  var host = server.address().address
 	  var port = server.address().port
 	  client.lpush("vistedSites",3002)
-   	  console.log('Example app listening at http://%s:%s', host, port)
+   	  console.log('Additional server app listening at http://%s:%s', host, port)
 })
 
 
