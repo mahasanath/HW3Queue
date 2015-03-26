@@ -8,9 +8,10 @@ HW #3 Proxies, Queues, Cache Fluency
 
 * Clone this repo, run `npm install`  ( to install any additional dependencies that are not present in node module).
 * Install redis and run on localhost:6379
-* Run "node main.js" , which includes the child processes for ServerInstance1.js (3001), ServerInstance2.js(3002) and proxyHttp.js (80)
+* Run `node main.js` , which includes the child processes for `ServerInstance1.js (3001), ServerInstance2.js(3002) and proxyHttp.js` (80)
+* Additionally you can also run "node proxyserver1.js" to see how a port 3000 has been created as a proxy and it is used to redirect request received on its port to 3001 and 3002
 
-> There are two server instances ServerInstance1.js, configured to run on port 3001 and ServerInstance2.js which runs on port 3002 ( additional server instance running) . A proxy is set up  on port 80 using a http-proxy node module. It can be found in proxyHttp.js in the repository. So requests received on proxy port 80 would be relayed to port 3001 or 3002 based on round robin scheme. Another method has also been used to setup proxy on port 3000 to rely all requests to ports 3001 and 3002 in proxyserver1.js.  So a request made at http://localhost:3000/ would be redirected and serviced by either http://localhost:3001/ or http://localhost:3002/. 
+> There are two server instances ServerInstance1.js, configured to run on port 3001 and ServerInstance2.js which runs on port 3002 ( additional server instance running) . A proxy is set up  on `port 80` using a `http-proxy` node module. It can be found in proxyHttp.js in the repository. So requests received on proxy port 80 would be relayed to port 3001 or 3002 based on round robin scheme. Another method has also been used to setup proxy on port 3000 to rely all requests to ports 3001 and 3002 in proxyserver1.js.  So a request made at http://localhost:3000/ would be redirected and serviced by either http://localhost:3001/ or http://localhost:3002/. 
 
 ##### Task 1: set and get     
 
@@ -54,7 +55,7 @@ res.send(value) sends back the value associated with the key in the request to t
 ##### Task 2: recent     
 
 > /recent is completed as follows:   
-It is implemented on server with port 3000(proxy server), 3001 and  3002. It would list the most recently visisted sites. lpush, ltrim and lrange are used to display the desired history of visited URLs. The result is printed in the console output and also sent to the client on the following link:    
+It is implemented on server with port 3001 and 3002. It would list the most recently visisted sites. lpush, ltrim and lrange are used to display the desired history of visited URLs. The result is printed in the console output and also sent to the client on the following link:    
 
  * http://localhost:3001/recent	
  * http://localhost:3002/recent
